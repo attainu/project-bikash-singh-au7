@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#000000" />
+        <meta
+            name="description"
+            content="Web site created using create-react-app"
+        />
+        <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+        <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+        <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+        <!-- Normalize Css -->
+        <link rel="stylesheet" href="assets/css/normalize.css" />
+        <!-- Main Css -->
+        <link rel="stylesheet" href="assets/css/main.css" />
+        <!-- Bootstrap Css -->
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+        <!-- Animate CSS -->
+        <link rel="stylesheet" href="assets/css/animate.min.css" />
+        <!-- Fontawesome CSS -->
+        <link rel="stylesheet" href="assets/css/fontawesome-all.min.css" />
+        <!-- Flaticon CSS -->
+        <link rel="stylesheet" href="assets/fonts/flaticon.css" />
+        <!-- Select 2 CSS -->
+        <link rel="stylesheet" href="assets/css/select2.min.css" />
+        <!-- Datetime Picker Style CSS -->
+        <link rel="stylesheet" href="assets/css/jquery.datetimepicker.css" />
+        <!-- Slick Caousel CSS -->
+        <link rel="stylesheet" href="assets/css/slick.css" />
+        <link rel="stylesheet" href="assets/css/slick-theme.css" />
+        <!-- Custom Css -->
+        <link rel="stylesheet" href="assets/style.css" />
+        <!-- Modernizr Js -->
+        <script src="assets/js/modernizr-3.6.0.min.js"></script>
+        <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+        <title>React App</title>
+    </head>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id="wrapper" className="wrapper">
+            <div id="root"></div>
+            <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+        </div>
+        <!-- Jquery Js -->
+        <script src="assets/js/jquery-3.3.1.min.js"></script>
+        <!-- Bootstrap Js -->
+        <script src="assets/js/popper.min.js"></script>
+        <!-- Bootstrap Js -->
+        <script src="assets/js/bootstrap.min.js"></script>
+        <!-- Plugins Js -->
+        <script src="assets/js/plugins.js"></script>
+        <!-- Select 2 Js -->
+        <script src="assets/js/select2.full.min.js"></script>
+        <!-- Date Time Picker Js -->
+        <script src="assets/js/jquery.datetimepicker.full.min.js"></script>
+        <!-- Imagesloaded Js -->
+        <script src="assets/js/imagesloaded.pkgd.min.js"></script>
+        <!-- Isotope js -->
+        <script src="assets/js/isotope.pkgd.min.js"></script>
+        <!-- Silk Cauosel JS -->
+        <script src="assets/js/slick.min.js"></script>
+        <!-- Parallaxie JS -->
+        <script src="assets/js/parallaxie.js"></script>
+        <!-- Smoothscroll Js -->
+        <script src="assets/js/smoothscroll.min.js"></script>
+        <!-- Custom Js -->
+        <script src="assets/js/main.js"></script>
+        <script>
+            $( document ).ready(function() {
+                $('#register').on('click',function(){
+                    $('#loginModal').modal('hide');
+                    $('#registerModal').modal('show'); 
+                })
+                $('#login').on('click',function(){
+                    $('#registerModal').modal('hide');
+                    $('#loginModal').modal('show'); 
+                })
+            })
+        </script>
+    </body>
+</html>
