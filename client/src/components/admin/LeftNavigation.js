@@ -1,9 +1,14 @@
-import React from "react";
+import React, {useContext} from "react";
 import { Link, BrowserRouter } from "react-router-dom";
+import { AdminContext } from "../admin/Admin";
+
 
 function LeftNavigation() {
+  const { state, dispatch } = useContext(AdminContext)
+
   return (
     <div>
+      {state &&
       <aside className="left-sidebar">
         {/* <!-- Sidebar scroll--> */}
         <div className="scroll-sidebar">
@@ -185,6 +190,7 @@ function LeftNavigation() {
         </div>
         {/* <!-- End Bottom points--> */}
       </aside>
+    }
     </div>
   );
 }

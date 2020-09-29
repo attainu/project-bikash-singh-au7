@@ -127,8 +127,8 @@ const Category = (props) => {
               M.toast({html: result.message, classes:'bg-success'})
               $("#closeAddCategoryButton").click();
               setIsAdded(true)
-              settitle('')
               setslug('')
+              settitle('')
             }else{
               if(result.title) M.toast({html: result.title, classes:'bg-danger'})
               if(result.slug) M.toast({html: result.slug, classes:'bg-danger'})
@@ -152,7 +152,6 @@ const Category = (props) => {
 
   // Get Data From Database
   useEffect(() => {
-    console.log('effect')
     fetch("/admin/allCategory", {
       method: "GET",
     })
@@ -273,6 +272,7 @@ const Category = (props) => {
                     <div className={"form-group mb-3"}>
                       <input
                         type="text"
+                        value={title}
                         onChange={titleChangeHandler}
                         className="form-control"
                         placeholder={"Title Here!"}

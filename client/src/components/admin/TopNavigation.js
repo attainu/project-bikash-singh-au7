@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, BrowserRouter } from "react-router-dom";
+import { AdminContext } from "../admin/Admin";
 
 function TopNavigation() {
+  const {state, dispatch} = useContext(AdminContext)
+
   return (
+    
     <header className="topbar">
+      {state &&
       <nav className="navbar top-navbar navbar-expand-md navbar-light">
         {/* <!-- Logo --> */}
 
         <div className="navbar-header">
-          <BrowserRouter>
+          
             
             <Link className="navbar-brand" to="/index.html">
               {/* <!-- Logo icon --> */}
@@ -33,7 +38,7 @@ function TopNavigation() {
                 />
               </span>
             </Link>
-          </BrowserRouter>
+          
         </div>
         {/* <!-- End Logo --> */}
         <div className="navbar-collapse">
@@ -41,18 +46,13 @@ function TopNavigation() {
           <ul className="navbar-nav mr-auto mt-md-0">
             {/* <!-- This is  --> */}
             <li className="nav-item">
-              <BrowserRouter>
-                
-                <Link
+                <button
                   className="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark"
-                  to=""
                 >
                   <i className="mdi mdi-menu"></i>
-                </Link>
-              </BrowserRouter>
+                </button>
             </li>
             <li className="nav-item">
-              <BrowserRouter>
                 
                 <button
                   className="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark"
@@ -60,12 +60,10 @@ function TopNavigation() {
                 >
                   <i className="ti-menu"></i>
                 </button>
-              </BrowserRouter>
             </li>
 
             {/* <!-- Search --> */}
             <li className="nav-item hidden-sm-down search-box">
-              <BrowserRouter>
                 
                 <Link
                   className="nav-link hidden-sm-down text-muted waves-effect waves-dark"
@@ -73,19 +71,18 @@ function TopNavigation() {
                 >
                   <i className="ti-search"></i>
                 </Link>
-              </BrowserRouter>
               <form className="app-search">
                 <input
                   type="text"
                   className="form-control"
                   placeholder="Search & enter"
                 />
-                <BrowserRouter>
+                
                   
                   <Link className="srh-btn" to={''}>
                     <i className="ti-close"></i>
                   </Link>
-                </BrowserRouter>
+                
               </form>
             </li>
           </ul>
@@ -94,7 +91,7 @@ function TopNavigation() {
           <ul className="navbar-nav my-lg-0">
             {/*<!-- Comment -->*/}
             <li className="nav-item dropdown">
-              <BrowserRouter>
+              
                 
                 <Link
                   className="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark"
@@ -109,7 +106,7 @@ function TopNavigation() {
                     <span className="point"></span>
                   </div>
                 </Link>
-              </BrowserRouter>
+              
               <div className="dropdown-menu dropdown-menu-right mailbox scale-up">
                 <ul>
                   <li>
@@ -118,7 +115,7 @@ function TopNavigation() {
                   <li>
                     <div className="message-center">
                       {/* <!-- Message --> */}
-                      <BrowserRouter>
+                      
                         
                         <Link to={'/'}>
                           <div className="btn btn-primary btn-circle">
@@ -132,17 +129,17 @@ function TopNavigation() {
                             <span className="time">9:02 AM</span>
                           </div>
                         </Link>
-                      </BrowserRouter>
+                      
                     </div>
                   </li>
                   <li>
-                    <BrowserRouter>
+                    
                       
                       <Link className="nav-link text-center" to=";">
                         <strong>Check all notifications</strong>
                         <i className="fa fa-angle-right"></i>
                       </Link>
-                    </BrowserRouter>
+                    
                   </li>
                 </ul>
               </div>
@@ -152,7 +149,7 @@ function TopNavigation() {
 
             {/* <!-- Profile --> */}
             <li className="nav-item dropdown">
-              <BrowserRouter>
+              
                 
                 <Link
                   className="nav-link dropdown-toggle text-muted waves-effect waves-dark"
@@ -167,7 +164,7 @@ function TopNavigation() {
                     className="profile-pic"
                   />
                 </Link>
-              </BrowserRouter>
+              
               <div className="dropdown-menu dropdown-menu-right scale-up">
                 <ul className="dropdown-user">
                   <li>
@@ -177,7 +174,7 @@ function TopNavigation() {
                       </div>
                       <div className="u-text">
                         <h4>Steave Jobs</h4>
-                        <BrowserRouter>
+                        
                           
                           <Link
                             to="/admin/profile"
@@ -185,37 +182,37 @@ function TopNavigation() {
                           >
                             View Profile
                           </Link>
-                        </BrowserRouter>
+                        
                       </div>
                     </div>
                   </li>
                   <li role="separator" className="divider"></li>
                   <li>
-                    <BrowserRouter>
+                    
                       
                       <Link to="/admin/profile">
                         <i className="ti-user"></i> My Profile
                       </Link>
-                    </BrowserRouter>
+                    
                   </li>
 
                   <li role="separator" className="divider"></li>
                   <li>
-                    <BrowserRouter>
+                    
                       
                       <Link to="/admin/account">
                         <i className="ti-settings"></i> Account Setting
                       </Link>
-                    </BrowserRouter>
+                    
                   </li>
                   <li role="separator" className="divider"></li>
                   <li>
-                    <BrowserRouter>
+                    
                       
                       <Link to="/admin/logout">
                         <i className="fa fa-power-off"></i> Logout
                       </Link>
-                    </BrowserRouter>
+                    
                   </li>
                 </ul>
               </div>
@@ -223,6 +220,7 @@ function TopNavigation() {
           </ul>
         </div>
       </nav>
+    }
     </header>
   );
 }

@@ -1,10 +1,10 @@
-const userModel = require("../models/userModel");
+const adminModel = require("../models/adminModel");
 const jwt = require('jsonwebtoken')
 const controller = {};
 
 controller.signup = (req, res) => {
   const body = req.body;
-  // body.password = userModel.
+  // body.password = adminModel.
   const { name, email, password } = body;
   const errors = {
     name: "",
@@ -22,16 +22,16 @@ controller.signup = (req, res) => {
     errors.success = false;
     return res.json(errors);
   } else {
-    userModel.findOne({ email: body.email }, (err, data) => {
+    adminModel.findOne({ email: body.email }, (err, data) => {
       if (!err) {
         if (data) {
           errors.success = false;
           errors.message = "Email Allready Exist";
           return res.json(errors);
         } else {
-          const userData = new userModel(body);
-          userData.password = userData.encryptPassword(body.password)
-          userData.save((e, data) => {
+          const adminData = new adminModel(body);
+          adminData.password = adminData.encryptPassword(body.password)
+          adminData.save((e, data) => {
             if (e) {
               errors.success = false;
               errors.message = "Some Error occured while saving the data"; 
@@ -52,7 +52,7 @@ controller.signup = (req, res) => {
   }
 };
 
-controller.login = (req, res) => {
+controller.login = (req, res, next) => {
   const body = req.body;
   const { email, password } = body;
   const errors = {
@@ -69,7 +69,7 @@ controller.login = (req, res) => {
     errors.success = false;
     return res.json(errors);
   }else{
-      userModel.findOne({email: email}, (err, data)=>{
+      adminModel.findOne({email: email}, (err, data)=>{
           if(!err){
               if(data){
                 if(data.decryptPassword(password)){
@@ -79,6 +79,7 @@ controller.login = (req, res) => {
                     const token = jwt.sign({_id: data._id}, process.env.JWT_SECRET)
                     errors.token = token
                     return res.json(errors)
+                    
                 }else{
                     errors.message = "Password Does't matched"
                     errors.success = false
@@ -92,6 +93,7 @@ controller.login = (req, res) => {
           }else{
             errors.message = "Error occured while fetching the data"
             errors.error = err
+            errors.success = false
             return res.json(errors)
           }
       })

@@ -1,7 +1,6 @@
 import React from 'react'
 
-function Dashboard({match}) {
-    console.log(match)
+function Dashboard() {
     return (
         <div>
             <div className="page-wrapper">

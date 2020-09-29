@@ -78,8 +78,13 @@ const Users = (props) => {
       .then((res) => res.json())
       .then(
         (result) => {
-          setIsLoaded(true);
-          setUsers(result.data);
+          if(result.success){
+            setIsLoaded(true);
+            setUsers(result.data || []);
+          }else{
+            M.toast({html: result.message, classes:"bg-danger"})
+            setIsLoaded(true);
+          }
         },
         (error) => {
           setIsLoaded(true);
