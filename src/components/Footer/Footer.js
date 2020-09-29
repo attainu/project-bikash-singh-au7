@@ -1,9 +1,12 @@
-import React, { Fragment, useState  } from "react";
-import { Link } from "react-router-dom";
+import React, { Fragment, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import FooterLogo from "./footer-logo.png";
+import Modal from '../Modal/Modal'
 
 const Footer = () => {
+
+    let location = useHistory();
 
     const [values, setValues] = useState({
         name: '',
@@ -39,7 +42,8 @@ const Footer = () => {
         email: '',
         password: '',
         success: '',
-        failure: ''
+        failure: '',
+        hide: false
     })
 
     const handleLogin = (name) => (event) => {
@@ -52,14 +56,25 @@ const Footer = () => {
     const handleLoginSubmit = (e) => {
         e.preventDefault();
         axios.post("http://localhost:5050/user/login", login)
-            .then(response => console.log(response.data))
+            .then(response => {
+                console.log(response.data)
+                if(response.data.token){
+                    localStorage.setItem('userToken', response.data.token)
+                    setLogin({
+                        ...login,
+                        email: "",
+                        password: "",
+                        hide: true
+                    })
+                    location.push('/')
+                    window.location.reload();
+                }else{
+                    location.push('/')
+                    window.location.reload();
+                }
+                
+            })
             .catch(error => console.log(error))
-
-        setLogin({
-            ...login,
-            email: "",
-            password: "",
-        })
     }
 
     return (
@@ -202,62 +217,8 @@ const Footer = () => {
                     </div>
                 </section>
             </footer>
-            <div className="modal fade" id="loginModal" role="dialog">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <div className="title-default-bold mb-none">
-                                Login
-                            </div>
-                            <button
-                                type="button"
-                                className="close"
-                                data-dismiss="modal"
-                            >
-                                &times;
-                            </button>
-                        </div>
-                        <div className="modal-body">
-                            <form className="login-form">
-                                <input
-                                    className="main-input-box"
-                                    type="text"
-                                    placeholder="Email address"
-                                    onChange={handleLogin("email")}
-                                    value={login.userEmail}
-                                />
-                                <input
-                                    className="main-input-box"
-                                    type="password"
-                                    placeholder="Password"
-                                    onChange={handleLogin("password")}
-                                    value={login.userPassword}
-                                />
-                                <div className="inline-box mb-5 mt-4">
-                                    <label className="lost-password">
-                                        <Link to="/">Lost your password?</Link>
-                                    </label>
-                                </div>
-                                <div class="inline-box mb-5 mt-4">
-                                    <Link class="btn-register" id="register">
-                                        <i class="fas fa-user"></i>
-                                        Register Here!
-                                    </Link>
-                                </div>
-                                <div className="inline-box mb-5 mt-4">
-                                    <button
-                                        className="btn-fill"
-                                        type="submit"
-                                        onClick={handleLoginSubmit}
-                                    >
-                                        Login
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Modal inputLogin={handleLogin} btnLogin={handleLoginSubmit}/>
+
             <div className="modal fade" id="registerModal" role="dialog">
                 <div className="modal-dialog">
                     <div className="modal-content">
@@ -296,11 +257,11 @@ const Footer = () => {
                                     onChange={handleChange("password")}
                                     value={password}
                                 />
-                                <div class="inline-box mb-5 mt-4">
-                                    <Link class="btn-register" id="login">
-                                        <i class="fas fa-user"></i>
+                                <div className="inline-box mb-5 mt-4">
+                                    <a className="btn-register" id="login">
+                                        <i className="fas fa-user"></i>
                                         Login Here!
-                                    </Link>
+                                    </a>
                                 </div>
                                 <div className="inline-box mb-5 mt-4">
                                     <button

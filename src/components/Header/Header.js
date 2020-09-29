@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import Logo from "./logo.png";
@@ -6,6 +6,24 @@ import StickyLogo from "./sticky-logo.png";
 
 const Header = () => {
     const location = useLocation();
+    
+    const [user, setUser] = useState('');
+    const [logout, setLogout] = useState('')
+
+    const updateUserInfo = () => {
+        const localData = localStorage.getItem('userToken')
+        setUser(localData)
+    }
+
+    useEffect(() => {
+        updateUserInfo();
+    })
+
+    const handleLogout = () => {
+        const logoutData = localStorage.removeItem('userToken')
+        setLogout(logoutData)
+    }
+
     return (
         <Fragment>
             <header id="site-header" className="header-one">
@@ -55,17 +73,31 @@ const Header = () => {
                             <div className="col-lg-3 d-none d-lg-flex align-items-center justify-content-end">
                                 <div className="nav-action-elements">
                                     <ul>
-                                        <li>
-                                            <button
-                                                type="button"
-                                                className="login-btn"
-                                                data-toggle="modal"
-                                                data-target="#loginModal"
-                                            >
-                                                {/* <i className="flaticon-profile"></i> */}
-                                                Login
-                                            </button>
-                                        </li>
+                                        {
+                                            (user) ?  
+                                            <li>
+                                                <button
+                                                    type="button"
+                                                    className="login-btn"
+                                                    onClick={handleLogout}
+                                                >
+                                                    <i className="flaticon-profile"></i>
+                                                    Logout
+                                                </button>
+                                            </li>
+                                            :
+                                            <li>
+                                                <button
+                                                    type="button"
+                                                    className="login-btn"
+                                                    data-toggle="modal"
+                                                    data-target="#loginModal"
+                                                >
+                                                    <i className="flaticon-profile"></i>
+                                                    Login
+                                                </button>
+                                            </li>
+                                        }
                                         <li>
                                             <Link to="/" className="ghost-btn">
                                                 <i className="fas fa-plus"></i>
