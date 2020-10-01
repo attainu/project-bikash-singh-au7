@@ -8046,11 +8046,19 @@ input[type=checkbox]:not(:disabled).tabbed:focus ~ .lever::after {
     .switch label input[type=checkbox]:checked + .lever.switch-col-white:after {
       background-color: #ffffff; }
 
+
+.outline-0{
+  outline: 0 !important;
+
+}
+
 .form-control {
   border: 0px solid !important;
-  border-bottom: 2px solid #02be66 !important;
+  /* border-bottom: 1px solid #8d8d8d !important; */
   border-radius: 0 !important;
   padding-left: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 .form-control:focus {
   box-shadow: none !important;

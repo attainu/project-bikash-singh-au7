@@ -7,13 +7,13 @@ import TopNavigation from "./TopNavigation"
 import Users from "./pages/Users"
 import Login from "./pages/Login"
 import { initialState, adminReducer } from "../../reducer/AdminReducer"
+import Profile from "./pages/Profile"
 
 // Create Context
 export const AdminContext = createContext();
 
 const Routing = () => {
   const history = useHistory()
-  console.log(history)
   const {state, dispatch} = useContext(AdminContext)
   useEffect(()=>{
     const admin = JSON.parse(localStorage.getItem("admin"))
@@ -30,6 +30,7 @@ const Routing = () => {
       <Route exact path="/admin/login" component={Login} />
       <Route exact path="/admin/category" component={Category} />
       <Route exact path="/admin/users" component={Users} />
+      <Route exact path={"/admin/profile"} component={Profile}/>
     </Switch>
   );
 };

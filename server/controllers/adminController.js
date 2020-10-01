@@ -1,6 +1,8 @@
 const controller = {};
+const adminModel = require("../models/adminModel");
 const userModel = require("../models/userModel");
-const categoryModel = require("../models/categoryModel")
+const categoryModel = require("../models/categoryModel");
+const mongoose = require("mongoose");
 
 // Get All Users
 controller.allUsers = (req, res) => {
@@ -16,6 +18,61 @@ controller.allUsers = (req, res) => {
     }
   });
 };
+
+// Get My Profile
+controller.adminProfile = (req, res) => {
+  console.log(req.admin._id)
+  adminModel.findOne({_id: mongoose.Types.ObjectId(req.admin._id) }, (error, result) => {
+    if (error) {
+      res.status(200).json({
+        success: false,
+        error: error,
+        message: "Oops Error Occured While Fetchning The data",
+      });
+    } else {
+      result.password = undefined
+      res.status(200).json({ success: true, data: result });
+    }
+  });
+};
+
+
+// Update Admin Profile
+controller.updateAdmin = (req, res) => {
+  const body = req.body;
+  // console.log(body);
+  const { _id, name, email, mobile} = body;
+  const errors = {
+    name: "",
+    email: "",
+    mobile: "",
+    success: true,
+    message: "",
+  };
+
+  if (name == "") errors.name = "Name is required";
+  if (email == "") errors.email = "Email is required";
+  if (mobile == "") errors.mobile = "Mobile is required";
+
+
+  if (errors.name || errors.email || errors.mobile) {
+    errors.success = false;
+    return res.json(errors);
+  }
+  adminModel.findByIdAndUpdate({ _id }, body, (error, result) => {
+    if (!error) {
+      errors.data = result;
+      errors.message = "Updated Successfully !!";
+      return res.json(errors);
+    } else {
+      errors.success = false;
+      errors.error = error;
+      errors.message = "Error occured while updating the data";
+      return res.json(errors);
+    }
+  });
+};
+
 
 // Update User
 controller.updateUser = (req, res) => {

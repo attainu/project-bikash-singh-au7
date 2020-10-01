@@ -14,6 +14,10 @@ const adminSchema = new Schema({
         trim: true,
         unique: true
     },
+    bio: {
+        type: String,
+        trim: true,
+    },
     mobile:{
         type: String,
         trim: true

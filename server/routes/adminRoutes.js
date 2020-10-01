@@ -10,10 +10,12 @@ router.post("/login", adminAuthController.login)
 
 
 router.get("/allUsers", adminRequireLogin, adminController.allUsers)
-router.put("/updateUser", adminController.updateUser)
-router.post("/addCategory", adminController.addCategory)
-router.get("/allCategory", adminController.allCategory)
-router.put("/updateCategory", adminController.updateCategory)
-router.delete("/deleteCategory", adminController.deleteCategory)
+router.get("/adminProfile", adminRequireLogin, adminController.adminProfile)
+router.put("/updateAdmin", adminRequireLogin, adminController.updateAdmin)
+router.put("/updateUser", adminRequireLogin, adminController.updateUser)
+router.post("/addCategory", adminRequireLogin, adminController.addCategory)
+router.get("/allCategory", adminRequireLogin, adminController.allCategory)
+router.put("/updateCategory", adminRequireLogin, adminController.updateCategory)
+router.delete("/deleteCategory", adminRequireLogin, adminController.deleteCategory)
 
 module.exports = router

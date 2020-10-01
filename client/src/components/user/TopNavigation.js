@@ -1,23 +1,11 @@
 import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { AdminContext } from "../admin/Admin";
 
 function TopNavigation() {
-  const {state, dispatch} = useContext(AdminContext)
-  const history = useHistory()
-
-  // Logout Function
-  const logout = (evt)=>{
-    evt.preventDefault()
-    localStorage.clear()
-    dispatch({type: "CLEAR"})
-    history.push("/admin/login")
-  }
-
+  
   return (
     
     <header className="topbar">
-      {state &&
       <nav className="navbar top-navbar navbar-expand-md navbar-light">
         {/* <!-- Logo --> */}
 
@@ -218,7 +206,7 @@ function TopNavigation() {
                   <li>
                     
                       
-                      <Link to="/admin/logout" onClick={logout}>
+                      <Link to="/admin/logout">
                         <i className="fa fa-power-off"></i> Logout
                       </Link>
                     
@@ -229,7 +217,6 @@ function TopNavigation() {
           </ul>
         </div>
       </nav>
-    }
     </header>
   );
 }

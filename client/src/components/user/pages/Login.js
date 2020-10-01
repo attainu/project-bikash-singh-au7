@@ -1,29 +1,29 @@
 import React, { useState, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import M from 'materialize-css'
-import {AdminContext} from '../Admin'
+import { UserContext } from "../User";
 
 
 function Login() {
+  const {state, dispatch} = useContext(UserContext)
+
   // History Initialization
-  const history = useHistory()
 
   // Create State
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   // Use Context
-  const {state, dispatch} = useContext(AdminContext)
   //   Submit Handler
   const submitHandler = (evt) => {
     evt.preventDefault();
-    const adminData = {
+    const userData = {
       email,
       password
     }
-    fetch("/admin/login", {
+    fetch("/user/login", {
       method: "POST",
-      body: JSON.stringify(adminData),
+      body: JSON.stringify(userData),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -33,10 +33,10 @@ function Login() {
         (result) => {
           if(result.success){
             M.toast({html: result.message, classes:'bg-success'})  
-            localStorage.setItem("admin", JSON.stringify(result.data))
-            localStorage.setItem("jwt_token", result.token)
-            dispatch({type:"ADMIN", payload: result.data})
-            window.location = '/admin'
+            localStorage.setItem("user", JSON.stringify(result.data))
+            localStorage.setItem("jwt_user_token", result.token)
+            dispatch({type: "USER", payload: result.data})
+            window.location = '/user'
           }else{
             if(result.email) M.toast({html: result.email, classes:'bg-danger'})
             if(result.password) M.toast({html: result.password, classes:'bg-danger'})
@@ -60,7 +60,7 @@ function Login() {
           </div>
           <div className={"card shadow-sm bg-white rounded-0 border-0"}>
             <div className={"card-body"}>
-              <form onSubmit={submitHandler}>
+              <form onSubmit={submitHandler}  className="form-horizontal form-material">
                 <div className={"form-group"}>
                   <div className={"form-group mb-4"}>
                     <input

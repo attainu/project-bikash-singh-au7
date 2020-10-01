@@ -26,7 +26,7 @@ const Users = (props) => {
       status: data.status,
       _id: data._id,
     };
-
+    console.log(userData);
     fetch("/admin/updateUser", {
       method: "PUT",
       body: JSON.stringify(userData),

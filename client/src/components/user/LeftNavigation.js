@@ -1,20 +1,12 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { Link, BrowserRouter, useHistory} from "react-router-dom";
-import { AdminContext } from "../admin/Admin";
+import { UserContext } from "./User";
 
 
 function LeftNavigation() {
-  const { state, dispatch } = useContext(AdminContext)
   const history = useHistory()
+  const {state, dispatch} = useContext(UserContext)
   console.log("ll",state)
-  // Logout Function
-  const logout = (evt)=>{
-    evt.preventDefault()
-    localStorage.clear()
-    dispatch({type: "CLEAR"})
-    history.push("/admin/login")
-  }
-
   return (
     <div>
       {state &&
@@ -43,7 +35,7 @@ function LeftNavigation() {
                 aria-haspopup="true"
                 aria-expanded="true"
               >
-                {state.name}
+              {state.name} 
               </Link>
 
               <div className="dropdown-menu animated flipInY">
@@ -59,7 +51,7 @@ function LeftNavigation() {
 
                 <div className="dropdown-divider"></div>
 
-                <button className="dropdown-item" onClick={logout}>
+                <button className="dropdown-item">
                   <i className="fa fa-power-off"></i> Logout
                 </button>
               </div>
@@ -191,7 +183,6 @@ function LeftNavigation() {
             
           <Link
             to=''
-            onClick={logout}
             className="link"
             data-toggle="tooltip"
             title="Logout"
