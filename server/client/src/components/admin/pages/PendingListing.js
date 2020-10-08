@@ -116,7 +116,7 @@ const PendingListing = (props) => {
                         return (
                           <tr key={index}>
                             <td> {list.title} </td>
-                            <td> {list.logo} </td>
+                            <td> <img className={"img img-fluid business-logo"} src={list.logo}></img>  </td>
                             <td> {list.category.title} </td>
                             <td> {list.user.name} </td>
                             <td>

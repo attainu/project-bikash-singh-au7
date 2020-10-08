@@ -177,7 +177,7 @@ function LeftNavigation() {
               </li>
 
               <li className="nav-devider"></li>
-              <li className="nav-small-cap">FORMS, TABLE &amp; WIDGETS</li>
+              <li className="nav-small-cap">Inquiry</li>
               <li>
                 <Link
                   className="has-arrow waves-effect waves-dark"

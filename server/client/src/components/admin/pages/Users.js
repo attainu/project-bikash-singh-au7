@@ -139,19 +139,7 @@ const Users = (props) => {
         <div className={"row"}>
           <div className={"col-md-8"}>
             <div className={"card mb-0 mt-2 border-0 rounded-0"}>
-              <div className={"card-body pb-0 pt-2"}>
-                <div>
-                  {/* <!-- Button trigger modal --> */}
-                  <button
-                    type="button"
-                    className="btn btn-info float-right rounded-0"
-                    data-toggle="modal"
-                    data-target="#addUserModel"
-                  >
-                    <span className={"fas fa-plus"}></span> Users
-                  </button>
-                </div>
-              </div>
+ 
             </div>
             <div className="card border-0 rounded-0 m-0 py-1">
               <div className="card-body py-0">
@@ -163,6 +151,7 @@ const Users = (props) => {
                     <thead>
                       <tr>
                         <th>Name</th>
+                        <th>Photo</th>
                         <th>Email</th>
                         <th>Contact</th>
                         <th>Status</th>
@@ -180,6 +169,7 @@ const Users = (props) => {
                         return (
                           <tr key={index}>
                             <td> {list.name} </td>
+                            <td> <img src={list.photo || "https://nichemodels.co/wp-content/uploads/2019/03/user-dummy-pic.png"} className={"comment-profile-img"} /> </td>
                             <td> {list.email} </td>
                             <td> {list.mobile} </td>
                             <td>

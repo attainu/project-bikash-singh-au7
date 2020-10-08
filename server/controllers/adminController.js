@@ -264,7 +264,21 @@ controller.publishedBusiness = (req, res)=>{
   }).populate('user', 'name').populate('category', 'title')
 }
 
-
+// Get Business Accouring to Slug
+controller.getBusinessAcdSlug = (req, res)=>{
+  const slug = req.params.slug
+  businessModel.findOne({ slug: slug }, (error, result) => {
+    if (error) {
+      res.status(200).json({
+        success: false,
+        error: error,
+        message: "Oops Error Occured While Fetchning The data",
+      });
+    } else {
+      res.status(200).json({ success: true, data: result });
+    }
+  })
+}
 
 // Update Business
 controller.updateBusiness = (req, res) => {

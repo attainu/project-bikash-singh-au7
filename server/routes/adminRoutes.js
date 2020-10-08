@@ -20,6 +20,7 @@ router.delete("/deleteCategory", adminRequireLogin, adminController.deleteCatego
 
 
 router.get("/pendingBusiness", adminRequireLogin, adminController.pendingBusiness)
+router.get("/getBusinessAcdSlug/:slug", adminRequireLogin, adminController.getBusinessAcdSlug)
 router.get("/publishedBusiness", adminRequireLogin, adminController.publishedBusiness)
 router.put("/updateBusiness", adminRequireLogin, adminController.updateBusiness)
 router.delete("/deleteBusiness", adminRequireLogin, adminController.deleteBusiness)

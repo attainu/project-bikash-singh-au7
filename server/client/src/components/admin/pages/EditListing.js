@@ -31,18 +31,8 @@ function EditListing(props) {
     setListing({ ...listing, slug: value.toLowerCase().replace(/ /gi, "-"), 'title': value });
   };
 
-  // Cover Iamege Change
-  const onCoverChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-      reader.onload = (e) => {
-        setCoverImage(e.target.result);
-      };
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  };
 
-  // Cover Iamege Change
+  // Logo Iamege Change
   const onLogoChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
@@ -103,11 +93,11 @@ function EditListing(props) {
   // Use Effect
   useEffect(() => {
     // Fetch All Category
-    fetch("/user/allCategory", {
+    fetch("/admin/allCategory", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("jwt_user_token")}`,
+        Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
       },
     })
       .then((res) => res.json())
@@ -125,11 +115,11 @@ function EditListing(props) {
       );
 
     // Fetch Business
-    fetch("/user/getBusinessAcdSlug/"+slug, {
+    fetch("/admin/getBusinessAcdSlug/"+slug, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("jwt_user_token")}`,
+          Authorization: `Bearer ${localStorage.getItem("jwt_token")}`,
         },
       })
         .then((res) => res.json())
@@ -357,20 +347,7 @@ function EditListing(props) {
                   />
                 </div>
 
-                <div className={"form-group col-md-12"}>
-                  <label className={"mb-2"}>Select Cover Image</label>
-                  <input
-                    type="file"
-                    onChange={onCoverChange}
-                    className="form-control"
-                  />
-                </div>
-                <div className={"form-group col-md-12"}>
-                  <img
-                    style={{ height: "400px", width: "100%" }}
-                    src={coverIamge}
-                  />
-                </div>
+               
 
                 <div className={"form-group col-md-6"}>
                   <label className={"mb-2"}>Select Brand Logo</label>
@@ -389,7 +366,7 @@ function EditListing(props) {
                       borderRadius: "100%",
                       border: "1px solid #5a5a5a",
                     }}
-                    src={logoImage}
+                    src={listing.logo ||  logoImage}
                   />
                 </div>
               </div>

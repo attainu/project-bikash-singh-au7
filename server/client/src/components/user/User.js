@@ -34,6 +34,7 @@ const Routing = () => {
   return (
     <Switch>
       <Route exact path="/user" component={Dashboard} />
+      <Route exact path="/user/dashboard" component={Dashboard} />
       <Route exact path="/user/login" component={Login} />
       <Route exact path="/user/createListing" component={CreateListing} />
       <Route exact path="/user/pendingListing" component={PendingListing} />

@@ -144,14 +144,21 @@ const PendingListing = (props) => {
                     className="table table-bordered table-striped my-0"
                   >
                     <thead>
-                      <tr>
+                      {listing.length? <tr>
                         <th>Title</th>
                         <th>Photo</th>
                         <th>Category</th>
                         <th>user</th>
                         <th>Status</th>
                         <th>Action</th>
+                      </tr>:
+                      <tr className={"border-0"}>
+                        <th className={"alert alert-danger border-0"} colSpan={5}>
+                          <i className={"mdi mdi-alert-circle"}></i>
+                          <span className={"ml-1"}>There is no Pending Listing</span>
+                        </th>
                       </tr>
+                      }
                     </thead>
                     <tbody>
                       {!isLoaded && (

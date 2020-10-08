@@ -27,10 +27,10 @@ function TopNavigation() {
               {/* <!-- Logo icon --> */}
               <b>
                 {/* <!-- Dark Logo icon --> */}
-                <img src="../assets/images/logo-icon.png" className="dark-logo" />
+                <img src="/assets/images/logo-icon.png" className="dark-logo" />
                 {/* <!-- Light Logo icon --> */}
                 <img
-                  src={state.photo || "../assets/images/logo-light-icon.png"}
+                  src={"/assets/images/logo-icon.png"}
                   className="light-logo"
                 />
               </b>
@@ -38,10 +38,10 @@ function TopNavigation() {
               {/* <!-- Logo text --> */}
               <span>
                 {/* <!-- dark Logo text --> */}
-                <img src="../assets/images/logo-text.png" className="dark-logo" />
+                <img src="/assets/images/logo-text.png" className="dark-logo" />
                 {/* <!-- Light Logo text -->     */}
                 <img
-                  src="../assets/images/logo-light-text.png"
+                  src="/assets/images/logo-text.png"
                   className="light-logo"
                 />
               </span>

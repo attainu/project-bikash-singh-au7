@@ -7,7 +7,6 @@ const path = require('path')
 const mongoose = require("mongoose")
 const { static } = require("express")
 const app = express()
-const PORT = process.env.PORT || 5050
 
 // Database Connection
 mongoose.connect(process.env.MONGODB_STRING, {useNewUrlParser: true,useUnifiedTopology: true})
@@ -24,6 +23,15 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use("/user",userAuthRoutes)
 app.use("/user", userRoutes)
 app.use("/admin", adminRoutes)
+
+const PORT = process.env.PORT || 5000;
+
+if(process.env.NODE_ENV === "production"){
+  app.use(express.static('client/build'))
+  app.get("*", (req, res)=>{
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  }) 
+}
 
 app.listen(PORT, ()=>{
   console.log(`Server is running at port ${PORT}`)

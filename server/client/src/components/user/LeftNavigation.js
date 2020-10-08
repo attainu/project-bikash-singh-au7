@@ -158,7 +158,7 @@ function LeftNavigation() {
               <li>
                 <Link
                   className="has-arrow waves-effect waves-dark"
-                  to="/admin"
+                  to="/user/dashboard"
                 >
                   <i className="mdi mdi-gauge"></i>
                   <span className="hide-menu">Dashboard </span>

@@ -1,8 +1,89 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import {UserContext} from '../../user/User'
+import M from 'materialize-css'
+import { Link } from 'react-router-dom';
 
 function Dashboard() {
     const {state, dispatch} = useContext(UserContext)
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [isUpdated, setisUpdated] = useState(false);
+    const [pendingListing, setPendingListing] = useState([]);
+    const [publishedListing, setPublishedListing] = useState([]);
+    const [data, setData] = useState({});
+    const [subComment, setSubCommment] = useState([]);
+
+   // Fetching the data
+   useEffect(() => {
+    //  Get Pending Lesting
+    fetch("/user/pendingBusiness", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("jwt_user_token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          if (result.success) {
+            setIsLoaded(true);
+            setPendingListing(result.data || []);
+          } else {
+            M.toast({ html: result.message, classes: "bg-danger" });
+            setIsLoaded(true);
+          }
+        },
+        (error) => {
+          setIsLoaded(true);
+        }
+      );
+
+      // Get Published Listing
+      fetch("/user/publishedBusiness", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("jwt_user_token")}`,
+        },
+      })
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            if (result.success) {
+              setIsLoaded(true);
+              setPublishedListing(result.data || []);
+            } else {
+              M.toast({ html: result.message, classes: "bg-danger" });
+              setIsLoaded(true);
+            }
+          },
+          (error) => {
+            setIsLoaded(true);
+          }
+        )
+        
+      // Get Submitted Comment
+      fetch("/user/submitedComment", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("jwt_user_token")}`,
+        },
+      })
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            if (result.success) {
+              setSubCommment(result.data || []);
+            } else {
+              M.toast({ html: result.message, classes: "bg-danger" });
+            }
+          },
+          (error) => {
+            console.log(error)
+          }
+        )
+  }, [isUpdated]);
 
     return (
         <div>
@@ -22,87 +103,92 @@ function Dashboard() {
                             <li className="breadcrumb-item active">Dashboard</li>
                         </ol>
                     </div>
-                    <div className="col-md-7 col-4 align-self-center">
-                        <div className="d-flex m-t-10 justify-content-end">
-                            <div className="d-flex m-r-20 m-l-10 hidden-md-down">
-                                <div className="chart-text m-r-10">
-                                    <h6 className="m-b-0"><small>THIS MONTH</small></h6>
-                                    <h4 className="m-t-0 text-info">$58,356</h4></div>
-                                <div className="spark-chart">
-                                    <div id="monthchart"></div>
-                                </div>
-                            </div>
-                            <div className="d-flex m-r-20 m-l-10 hidden-md-down">
-                                <div className="chart-text m-r-10">
-                                    <h6 className="m-b-0"><small>LAST MONTH</small></h6>
-                                    <h4 className="m-t-0 text-primary">$48,356</h4></div>
-                                <div className="spark-chart">
-                                    <div id="lastmonthchart"></div>
-                                </div>
-                            </div>
-                            <div className="">
-                                <button className="right-side-toggle waves-effect waves-light btn-success btn btn-circle btn-sm pull-right m-l-10"><i className="ti-settings text-white"></i></button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 {/* <!-- ============================================================== --> */}
                 {/* <!-- End Bread crumb and right sidebar toggle --> */}
-                {/* <!-- ============================================================== --> */}
-                {/* <!-- ============================================================== --> */}
+                
                 {/* <!-- Start Page Content --> */}
-                {/* <!-- ============================================================== --> */}
                 {/* <!-- Row --> */}
-                <div className="row">
-                    {/* <!-- Column --> */}
-                    <div className="col-lg-8 col-md-7">
-                        <div className="card">
-                            <div className="card-body">
-                                <div className="row">
-                                    <div className="col-12">
-                                        <div className="d-flex flex-wrap">
-                                            <div>
-                                                <h3 className="card-title">Sales Overview</h3>
-                                                <h6 className="card-subtitle">Ample Admin Vs Pixel Admin</h6> </div>
-                                            <div className="ml-auto">
-                                                <ul className="list-inline">
-                                                    <li>
-                                                        <h6 className="text-muted text-success"><i className="fa fa-circle font-10 m-r-10 "></i>Ample</h6> </li>
-                                                    <li>
-                                                        <h6 className="text-muted  text-info"><i className="fa fa-circle font-10 m-r-10"></i>Pixel</h6> </li>
-                                                </ul>
+
+                <div className={"row"}>
+                    <div className={"col-md-12"}>
+                        <div className={"card"}>
+                            <div className={"card-body"}>
+                                <h3 className="card-title">Stats Overview</h3>
+                                <div className={"row"}>
+                                    {/* Pending Listings */}
+                                    <div className={"col-md-3"}>
+                                        <div className={"card bg-info border-0"}>
+                                            <Link to={"/user/pendingListing"}>
+                                                <div className={"card-body py-1"}>
+                                                    <div className={"float-left"}>
+                                                        <i className={'mdi mdi-layers v-big-icon text-light'}/>
+                                                    </div>
+                                                    <div className={"float-right text-right m-2"}>
+                                                        <h2 className={"text-light"}> {pendingListing.length} </h2>
+                                                        <span className={"text-light"}>Pending Listing</span>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                    
+                                    {/* Published Listings */}
+                                    <div className={"col-md-3"}>
+                                        <div className={"card bg-primary border-0"}>
+                                            <Link to={"/user/publishedListing"}>
+                                                <div className={"card-body py-1"}>
+                                                    <div className={"float-left"}>
+                                                        <i className={'mdi mdi-verified v-big-icon text-light'}/>
+                                                    </div>
+                                                    <div className={"float-right text-right m-2"}>
+                                                        <h2 className={"text-light"}> {publishedListing.length} </h2>
+                                                        <span className={"text-light"}>Publish Listing</span>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    </div>
+
+                                    {/* Submited Comments */}
+                                    <div className={"col-md-3"}>
+                                        <div className={"card bg-warning border-0"}>
+                                            <div className={"card-body py-1"}>
+                                                <div className={"float-left"}>
+                                                    <i className={'mdi mdi-comment v-big-icon text-light'}/>
+                                                </div>
+                                                <div className={"float-right text-right m-2"}>
+                                                    <h2 className={"text-light"}> {subComment.length} </h2>
+                                                    <span className={"text-light"}>Post Comments</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-12">
-                                        <div className="amp-pxl" style={{"height": "360px"}}></div>
+
+                                    {/* Got Comments */}
+                                    <div className={"col-md-3"}>
+                                        <div className={"card bg-danger border-0"}>
+                                            <div className={"card-body py-1"}>
+                                                <div className={"float-left"}>
+                                                    <i className={'mdi mdi-comment-multiple-outline v-big-icon text-light'}/>
+                                                </div>
+                                                <div className={"float-right text-right m-2"}>
+                                                    <h2 className={"text-light"}>0</h2>
+                                                    <span className={"text-light"}>Got Comments</span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-5">
-                        <div className="card">
-                            <div className="card-body">
-                                <h3 className="card-title">Our Visitors</h3>
-                                <h6 className="card-subtitle">Different Devices Used to Visit</h6>
-                                <div id="visitor" style={{"height":"290px", "width":"100%"}}></div>
-                            </div>
-                            <div>
-                                <hr className="m-t-0 m-b-0"/>
-                            </div>
-                            <div className="card-body text-center ">
-                                <ul className="list-inline m-b-0">
-                                    <li>
-                                        <h6 className="text-muted text-info"><i className="fa fa-circle font-10 m-r-10 "></i>Mobile</h6> </li>
-                                    <li>
-                                        <h6 className="text-muted  text-primary"><i className="fa fa-circle font-10 m-r-10"></i>Desktop</h6> </li>
-                                    <li>
-                                        <h6 className="text-muted  text-success"><i className="fa fa-circle font-10 m-r-10"></i>Tablet</h6> </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                </div>
+                <div className="row">
+                    {/* <!-- Column --> */}
+
+
                 </div>
                 {/* <!-- Row --> */}
                 {/* <!-- Row --> */}

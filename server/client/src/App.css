@@ -97,6 +97,10 @@
 .big-icon{
   font-size: 45px;
 }
+.v-big-icon{
+  font-size: 65px;
+  padding: 0;
+}
 .icon-rounded{
   border: 1px solid#fc4b6c !important;
   border-radius: 100%;
