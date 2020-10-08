@@ -23,8 +23,7 @@ const userSchema = new Schema({
         trim: true
     },
     photo:{
-        type: String,
-        trim: true
+        type: String
     },
     password:{
         type: String
@@ -47,11 +46,14 @@ const userSchema = new Schema({
     },
     status:{
         type: Boolean,
-        default: 1
+        default: true
+    },
+    bio:{
+        type: String,
     },
     created_date:{
         type: String,
-        default: Date.now()
+        default: new Date()
     }
 })
 

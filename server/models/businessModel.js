@@ -2,17 +2,17 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const businessSchema = new Schema({
-    name:{
+    title:{
         type: String,
         required: true
     },
     category:{
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'category',
         required: true
     },
     user:{
-        type: mongoose.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
         required: true
     },
@@ -33,41 +33,47 @@ const businessSchema = new Schema({
         type: String,
     },
     status:{
-        type: Number,
-        default: 0
+        type: Boolean,
+        default: false
     },
     website:{
-        type: URL,
+        type: String,
     },
     logo:{
         type: String,
+        default: "No Logo"
     },
     cover:{
+        type: String,
+        default: "No Logo"
+    },
+    
+    address:{
         type: String,
     },
     state:{
         type: String,
     },
-    address:{
+    city:{
         type: String,
     },
-    nearBy:{
+    pinCode:{
         type: String,
     },
     facebook:{
-        type: URL,
+        type: String,
     },
     twitter:{
-        type: URL,
+        type: String,
     },
     youtube:{
-        type: URL,
+        type: String,
     },
     instagram:{
-        type: URL,
+        type: String,
     },
     linkedin:{
-        type: URL,
+        type: String,
     },
     createdDate:{
         type: String,

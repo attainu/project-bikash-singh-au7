@@ -18,4 +18,9 @@ router.get("/allCategory", adminRequireLogin, adminController.allCategory)
 router.put("/updateCategory", adminRequireLogin, adminController.updateCategory)
 router.delete("/deleteCategory", adminRequireLogin, adminController.deleteCategory)
 
+
+router.get("/pendingBusiness", adminRequireLogin, adminController.pendingBusiness)
+router.get("/publishedBusiness", adminRequireLogin, adminController.publishedBusiness)
+router.put("/updateBusiness", adminRequireLogin, adminController.updateBusiness)
+router.delete("/deleteBusiness", adminRequireLogin, adminController.deleteBusiness)
 module.exports = router

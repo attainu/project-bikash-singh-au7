@@ -69,7 +69,7 @@ controller.login = (req, res) => {
     errors.success = false;
     return res.json(errors);
   }else{
-      userModel.findOne({email: email}, (err, data)=>{
+      userModel.findOne({email: email, status: true}, (err, data)=>{
           if(!err){
               if(data){
                 if(data.decryptPassword(password)){

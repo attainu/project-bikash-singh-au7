@@ -13,6 +13,14 @@ const categorySchema = new Schema({
         trim: true,
         unique: true
     },
+    icon: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    listing:{
+        type: mongoose.Types.ObjectId
+    },
     status:{
         type: Boolean
     },

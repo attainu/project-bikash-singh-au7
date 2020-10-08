@@ -1,5 +1,6 @@
 const express = require("express")
 const userAuthRoutes = require("./routes/userAuthRoutes")
+const userRoutes = require('./routes/userRoutes')
 const adminRoutes = require("./routes/adminRoutes")
 require('dotenv').config()
 const path = require('path')
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // Use Routes
 app.use("/user",userAuthRoutes)
+app.use("/user", userRoutes)
 app.use("/admin", adminRoutes)
 
 app.listen(PORT, ()=>{

@@ -13,6 +13,8 @@ const adminRequireLogin = (req, res, next)=>{
                 adminModel.findOne({_id: payload._id}, (err, result)=>{
                     if(err){
                         return res.json({message: "Error Occured while fetching the data", success: false})
+                    }else if(!result){
+                        return res.json({message: "Invalid Credentials", success: false})
                     }else{
                         result.password = undefined
                         req.admin = result

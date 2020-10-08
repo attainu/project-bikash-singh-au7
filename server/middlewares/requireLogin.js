@@ -13,6 +13,8 @@ const requireLogin = (req, res, next)=>{
                 userModel.findOne({_id: payload._id}, (err, user)=>{
                     if(err){
                         return res.json({message: "Error Occured while fetching the data", success: false})
+                    }else if(!user){
+                        return res.json({message: "Invalid Credentials", success: false})
                     }else{
                         user.password = undefined
                         req.user = user
